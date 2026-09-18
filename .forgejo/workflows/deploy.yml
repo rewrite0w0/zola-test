@@ -1,0 +1,37 @@
+name: Deploy to Codeberg Pages
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build-and-deploy:
+    runs-on: docker
+    container:
+      image: alpine:edge
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Zola
+        run: apk add zola git
+
+      - name: Build site
+        run: zola build
+
+      - name: Deploy to pages branch
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Codeberg Actions"
+          git clone --branch pages https://$TOKEN@codeberg.org/${{ github.repository }}.git out
+          cd out
+          rm -rf ./* ./.[!.]* 2>/dev/null || true
+          cp -a ../public/. .
+          git add -A
+          git commit -m "Deploy ${{ github.sha }}" --allow-empty
+          git push
+        env:
+          TOKEN: ${{ secrets.CODEBERG_TOKEN }}
