@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://rewrite0w0.github.io/zola-test/</loc>
+    </url>
+    <url>
+        <loc>https://rewrite0w0.github.io/zola-test/blog/</loc>
+    </url>
+    <url>
+        <loc>https://rewrite0w0.github.io/zola-test/blog/first/</loc>
+        <lastmod>2019-11-27</lastmod>
+    </url>
+    <url>
+        <loc>https://rewrite0w0.github.io/zola-test/blog/second/</loc>
+        <lastmod>2019-11-28</lastmod>
+    </url>
+    <url>
+        <loc>https://rewrite0w0.github.io/zola-test/blog/third/</loc>
+        <lastmod>2019-11-30</lastmod>
+    </url>
+    <url>
+        <loc>https://rewrite0w0.github.io/zola-test/first/</loc>
+        <lastmod>2019-11-27</lastmod>
+    </url>
+    <url>
+        <loc>https://rewrite0w0.github.io/zola-test/second/</loc>
+        <lastmod>2019-11-28</lastmod>
+    </url>
+    <url>
+        <loc>https://rewrite0w0.github.io/zola-test/third/</loc>
+        <lastmod>2019-11-30</lastmod>
+    </url>
+</urlset>
