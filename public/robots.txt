@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-Allow: /
-Sitemap: https://rewrite0w0.github.io/zola-test/sitemap.xml

@@ -12,5 +12,12 @@ build_search_index = true
 [markdown.highlighting]
 theme = "catppuccin-mocha"
 
+[search]
+index_format = "elasticlunr_json"
+include_title = true
+include_content = true          # 본문 포함 (기본값이지만 명시)
+# include_description = true   # 원하면 description도 추가
+# truncate_content_length = 500  # 너무 길면 잘라서 인덱스 크기 줄이기 (선택)
+
 [extra]
 # Put all your custom variables here
