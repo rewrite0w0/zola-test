@@ -64,52 +64,58 @@
     </div>
   </div>
 
-  <!-- 검색 스크립트는 body 맨 아래에 -->
-  <script src="{{ get_url(path='elasticlunr.min.js') }}"></script>
-  <script>
-    let searchIndex = null;
+<!-- head나 body 아무 데나 -->
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
 
-    async function loadIndex() {
-      try {
-        const res = await fetch("{{ get_url(path='search_index.en.json') }}");
-        if (!res.ok) throw new Error("index 로드 실패: " + res.status);
-        const data = await res.json();
-        searchIndex = elasticlunr.Index.load(data);
-        console.log("Search index loaded");
-      } catch (e) {
-        console.error("Search index error:", e);
-      }
+<script>
+  let fuse = null;
+
+  async function loadSearch() {
+    try {
+      const res = await fetch("{{ get_url(path='search_index.en.json') }}");
+      const data = await res.json();
+
+      // Fuse 옵션 (한글에 잘 맞는 설정)
+      const options = {
+        keys: [
+          { name: "title", weight: 2 },
+          { name: "body", weight: 1 }
+        ],
+        threshold: 0.4,          // 0에 가까울수록 엄격, 1에 가까울수록 느슨
+        ignoreLocation: true,
+        includeScore: true,
+        minMatchCharLength: 1
+      };
+
+      fuse = new Fuse(data, options);
+      console.log("Fuse search ready");
+    } catch (e) {
+      console.error("Search load failed:", e);
     }
+  }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      loadIndex();
+  document.addEventListener("DOMContentLoaded", () => {
+    loadSearch();
 
-      const searchBox = document.getElementById('search-box');
-      const resultsList = document.getElementById('search-results');
+    const searchBox = document.getElementById("search-box");
+    const resultsList = document.getElementById("search-results");
 
-      searchBox.addEventListener('input', function (e) {
-        const query = e.target.value.trim();
-        resultsList.innerHTML = '';
+    searchBox.addEventListener("input", (e) => {
+      const query = e.target.value.trim();
+      resultsList.innerHTML = "";
 
-        if (!searchIndex || query.length < 2) return;
+      if (!fuse || query.length < 1) return;
 
-        const results = searchIndex.search(query, {
-          expand: true,
-          bool:"OR",
-          fields: {
-            title: { boost: 3 },
-            body: { boost: 1 }
-          }
-        });
+      const results = fuse.search(query).slice(0, 10);
 
-        results.slice(0, 10).forEach(result => {
-          const doc = searchIndex.documentStore.getDoc(result.ref);
-          const li = document.createElement('li');
-          li.innerHTML = `<a href="${result.ref}">${doc.title || result.ref}</a>`;
-          resultsList.appendChild(li);
-        });
+      results.forEach(result => {
+        const item = result.item;
+        const li = document.createElement("li");
+        li.innerHTML = `<a href="${item.url || item.permalink || item.path}">${item.title}</a>`;
+        resultsList.appendChild(li);
       });
     });
-  </script>
+  });
+</script>
 </body>
 </html>
