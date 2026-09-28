@@ -4,28 +4,6 @@
   <meta charset="utf-8">
   <title>MyBlog</title>
   <style>
-    #ad-note-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 9999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-    #ad-note-box {
-      background: #111111;
-      color: white;
-      border: white 1px solid;
-      padding: 1.5em;
-      max-width: 20em;
-      text-align: center;
-    }
-    #ad-note-box button {
-      margin: 0.5em;
-      padding: 0.5em 1em;
-      cursor: pointer;
-    }
     /* 검색 결과 스타일 추가 추천 */
     #search-results {
       list-style: none;
@@ -51,19 +29,11 @@
     </div>
   </section>
 
-  <!-- 광고 관련 코드는 그대로 -->
-  <script defer src="{{ get_url(path='nativeads.js') }}"></script>
-  <div id="ad-sensor" class="ad native-ad ad-banner adsbygoogle ad-container advertisement blocker-notice"
-       style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;"></div>
+<script src="https://unpkg.com/bye-ad/dist/index.global.js"></script>
 
-  <div id="ad-note-modal">
-    <div id="ad-note-box">
-      <p>광고 차단기가 감지되지 않았습니다.<br>uBlock Origin을 설치하면 더 빠르고 안전하게 인터넷을 쓸 수 있어요.</p>
-      <button id="ad-note-ok">OK</button>
-      <button id="ad-note-install">설치하러 가기</button>
-    </div>
-  </div>
-
+<script>
+  bye_ad();
+</script>
 <!-- head나 body 아무 데나 -->
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
 
