@@ -23,13 +23,27 @@
     <ul id="search-results"></ul>
   </div>
 
+  <div
+  id="bye-ad-sensor"
+  class="ad ads advertisement native-ad"
+  data-ad="true"
+  aria-hidden="true"
+  style="
+    position: absolute;
+    left: -99999px;
+    top: -99999px;
+    width: 1px;
+    height: 1px;
+  "
+></div>
+
   <section class="section">
     <div class="container">
       {% block content %} {% endblock content %}
     </div>
   </section>
 
-<script src="https://unpkg.com/bye-ad/dist/index.global.js"></script>
+<script src="https://unpkg.com/@rewrite0w0/bye-ad/dist/index.global.js"></script>
 
 <script>
   bye_ad();
